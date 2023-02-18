@@ -1,0 +1,93 @@
+.MD_container{
+    blockquote {
+        margin-top: 5px;
+        padding: 0.3rem 16px 0.3rem 10px;
+        background: #F5F5F5;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.23);
+        border-left: 5px solid #DDDDDD;
+        overflow-wrap: break-word;
+    }
+
+    blockquote p{
+        margin: 0;
+    }
+    
+    h2, h3{
+        font-weight: 400;
+    }
+
+    h2{
+        border-bottom: #c6c6c6 solid 0.23rem;
+        padding-bottom: 0.1rem;
+        margin: 2rem 0 0.5rem 0;
+    }
+
+    h3{
+        border-left: #5c656c solid 0.3rem;
+        margin-top: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-size: 25px;
+        padding-left: 0.7rem;
+    }
+    
+    table {
+        width: auto;
+        word-break: break-all;
+        border: #d7d7d7 0.05rem solid;
+        border-radius: 3px;
+    }
+
+    thead {
+        border-bottom: black 0.1rem solid;
+    }
+
+    thead th{
+        border-left: #d7d7d7 0.05rem solid;
+    }
+
+    tbody tr:nth-child(odd){
+        background-color: #ebeced;
+    }
+
+    thead th{
+        font-weight: 400;
+    }
+
+    tbody td, th{
+        padding: 0.5rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+
+    tbody td{
+        border-left: #d7d7d7 0.05rem solid;
+    }
+
+    p code{
+        color: black;
+        background-color: #d7d7d7;
+        padding: 2px;
+        border: 1px solid #c6c6c6;
+        font-size: 1rem;
+        margin: 0 0.3rem 0 0.3rem;
+    }
+    
+    a{
+        color: #0075b7
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    
+    /* 数式のはみ出し対処　*/
+    div[class*="math-display"]{
+        overflow-x: hidden;
+    }
+    
+    @media screen and (max-width: 800px){
+        div[class*="math-display"]{
+            overflow-x: scroll;
+        }
+    }
+}
