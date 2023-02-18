@@ -27,7 +27,7 @@ export function MDtoHtml(markdown: string): string {
             //.use(rehypeImgSize, { dir: path.join(currentdirectory, "public") })
             .use(rehypeSlug)
             .use(rehypeExternalLinks, { target: "_blank", rel: ['noopener noreferrer nofollow'] })//トランスフォーマー外部リンクに属性を追加
-            .use(rehypePicture, { jpg: { webp: "image/webp" }, png: { webp: "image/webp" } })// add alternative image
+            //.use(rehypePicture, { jpg: { webp: "image/webp" }, png: { webp: "image/webp" } })// add alternative image
             .use(rehypeKatex, {strict: false})
             .use(rehypeHighlight, {languages:{hjs_latex}})
             .use(rehypeWrapTable)
