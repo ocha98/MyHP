@@ -8,6 +8,7 @@ import PostStyle from "../../styles/Post.module.scss"
 import { GetServerSideProps, NextPage } from 'next'
 import BreadJsonLd from 'components/BreadJsonLdPost'
 import { Post } from 'types'
+import Ogp from 'components/Ogp'
 
 type SSRProps = {
   postData: Post
@@ -37,6 +38,7 @@ export const Page: NextPage<SSRProps> = ({ postData }) => {
     <>
       <Meta description={postData.description} title={postData.title}/>
       <BreadJsonLd title={postData.id}/>
+      <Ogp description={postData.description} title={postData.title}/>
       <div className={PostStyle.container}>
         <Container  className='p-0'>
           <article className={`py-3 p-0`}>
