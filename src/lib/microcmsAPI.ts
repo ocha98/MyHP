@@ -51,6 +51,15 @@ export async function loadPostData(id: string): Promise<Post|null>{
     return retu  
 }
 
+//全ての投稿idを取得
+export async function getAllPostIDs(): Promise<{id:string}[]> {
+    const url = urlJoin(process.env.API_URL, 'myblog')
+    const param: Params = {orders: "-published", limit:" 500", fields:"id"}
+    const data = await request(url, param).then(res => res.json())
+
+    return data.contents
+}
+
 // 全ての投稿メタを日付順にソートし返却
 export async function getSortedPostMeta(limit: number):Promise<PostMeta[]> {
     const url = urlJoin(process.env.API_URL, `myblog`)

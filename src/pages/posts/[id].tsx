@@ -1,21 +1,40 @@
-import { loadPostData } from 'lib/microcmsAPI'
+import { loadPostData, getAllPostIDs } from 'lib/microcmsAPI'
 import { Container } from "react-bootstrap"
 import PostHeader from 'components/organism/PostHeader'
 import StyleMD from "../../styles/Markdown.module.scss"
 import { MDtoHtml } from 'lib/MDtoHTML'
 import Meta from 'components/Meta'
 import PostStyle from "../../styles/Post.module.scss"
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { ParsedUrlQuery } from 'node:querystring'
 import BreadJsonLd from 'components/BreadJsonLdPost'
 import { Post } from 'types'
 import Ogp from 'components/Ogp'
+import { differenceInDays } from 'date-fns' 
 
-type SSRProps = {
+interface Params extends ParsedUrlQuery {
+  id: string
+}
+
+type Props = {
   postData: Post
 }
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async ( context ) => {
-  const id = context.query["id"] as string
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const ids = await getAllPostIDs()
+  let paths = []
+  for(let v of ids){
+    paths.push({params: {id: v["id"]}})
+  }
+
+  return { 
+    paths, 
+    fallback: 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
+  const { id } = context.params as Params 
 
   let post = await loadPostData(id)
 
@@ -25,15 +44,25 @@ export const getServerSideProps: GetServerSideProps<SSRProps> = async ( context 
     }
   }
 
+  const now_date = new Date()
+  const modified = new Date(post.modified)
+  const diff_day = differenceInDays(now_date, modified)
+
+  let revalidate = 60*60*24 * 2;// 2日
+  if(diff_day <= 1){
+    revalidate = 60
+  }
+
   post.content = await MDtoHtml(post.content)
   return {
     props: {
       postData: post
     },
-  }  
+    revalidate
+  }
 }
 
-export const Page: NextPage<SSRProps> = ({ postData }) => {
+export const Page: NextPage<Props> = ({ postData }) => {
   return (
     <>
       <Meta description={postData.description} title={postData.title}/>
