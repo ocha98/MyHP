@@ -1,7 +1,6 @@
 import Link from "next/link"
 import Time from "../atom/Time"
 import Tag from "../atom/Tag"
-import React from "react"
 import { PostMeta } from "types"
 
 const PostCard = ({ id, title, description, published, tags}:PostMeta) => {

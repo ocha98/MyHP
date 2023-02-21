@@ -1,6 +1,5 @@
 //OGP用のmetaを生成します
 import Head from "next/head"
-import React from "react"
 import { useRouter } from "next/router"
 import urlJoin from "url-join"
 

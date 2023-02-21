@@ -1,6 +1,5 @@
 //タイトル、description、正規URLの設定する
 import Head from "next/head"
-import React from "react"
 import { useRouter } from'next/router'
 import urlJoin from "url-join"
 

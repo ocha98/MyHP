@@ -1,5 +1,4 @@
 import PostCard from "../molecule/PostCard"
-import React from "react"
 import { PostMeta } from "types"
 
 const PostGrid = ({ postDatas }:{postDatas:PostMeta[]}) => {
