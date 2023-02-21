@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { PostMeta } from 'types';
 import { getSortedPostMeta } from 'lib/microcmsAPI';
 import PostGrid from 'components/organism/PostsGrid';
@@ -6,11 +6,11 @@ import Ogp from 'components/Ogp';
 import Meta from 'components/Meta'
 import Link from 'next/link';
 
-type SSRProps = {
+type Props = {
   recentPosts: PostMeta[]
 }
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async ( context ) => {
+export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
   const num = 4
   let data = await getSortedPostMeta(num)
 
@@ -18,11 +18,12 @@ export const getServerSideProps: GetServerSideProps<SSRProps> = async ( context 
   return {
     props: {
       recentPosts: data
-    }
+    },
+    revalidate: 60*60 //１時間
   }
 }
 
-const Home: NextPage<SSRProps> = ({ recentPosts }) => {
+const Home: NextPage<Props> = ({ recentPosts }) => {
   const info_block_size = "100px"
   const info_icon_size = 60
   return (

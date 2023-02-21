@@ -1,24 +1,25 @@
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import Meta from "components/Meta";
 import PostGrid from "components/organism/PostsGrid";
 import Ogp from "components/Ogp";
 import { getSortedPostMeta } from "lib/microcmsAPI";
 import { PostMeta }from 'types'
 
-type SSRProps = {
+type Props = {
   allPosts: PostMeta[]
 }
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const allPosts = await getSortedPostMeta(500);
   return {
     props: {
       allPosts
-    }
+    },
+    revalidate: 60*60*3,
   }
 }
 
-const Posts: NextPage<SSRProps> = ({ allPosts }) => {
+const Posts: NextPage<Props> = ({ allPosts }) => {
   return (
     <>
       <Meta description="今までの投稿一覧です。すべての投稿が集まってます！" title="Posts"/>
