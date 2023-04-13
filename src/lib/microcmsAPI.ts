@@ -79,7 +79,7 @@ export async function getAllTagIds():Promise<{id:string}[]> {
 
 // 指定したタグがつけられている投稿を取得
 export async function getPostMetaByTag(slug:string):Promise<Post[]> {
-    const param:Params = {filters: `tags[contains]${slug}`, fields: postMetas.join(",")}
+    const param:Params = {orders: "-published", limit:" 500", filters: `tags[contains]${slug}`, fields: postMetas.join(",")}
     const url = urlJoin(process.env.API_URL, "myblog");
     const data = await request(url, param).then(res => res.json())
     return data.contents
