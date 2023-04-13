@@ -18,8 +18,7 @@ export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
   return {
     props: {
       recentPosts: data
-    },
-    revalidate: 60*60 //１時間
+    }
   }
 }
 
