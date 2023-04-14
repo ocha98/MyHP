@@ -10,7 +10,6 @@ import { ParsedUrlQuery } from 'node:querystring'
 import BreadJsonLd from 'components/BreadJsonLdPost'
 import { Post } from 'types'
 import Ogp from 'components/Ogp'
-import { differenceInDays } from 'date-fns' 
 
 interface Params extends ParsedUrlQuery {
   id: string
@@ -28,8 +27,8 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   }
 
   return { 
-    paths, 
-    fallback: 'blocking'
+    paths,
+    fallback: false,
   }
 }
 
@@ -44,21 +43,11 @@ export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
     }
   }
 
-  const now_date = new Date()
-  const modified = new Date(post.modified)
-  const diff_day = differenceInDays(now_date, modified)
-
-  let revalidate = 60*60*24 * 2;// 2日
-  if(diff_day <= 1){
-    revalidate = 60
-  }
-
   post.content = await MDtoHtml(post.content)
   return {
     props: {
       postData: post
-    },
-    revalidate
+    }
   }
 }
 

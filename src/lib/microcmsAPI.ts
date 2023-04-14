@@ -68,9 +68,18 @@ export async function getSortedPostMeta(limit: number):Promise<PostMeta[]> {
     return data.contents
 }
 
+// 全てのタグidを取得
+export async function getAllTagIds():Promise<{id:string}[]> {
+    let url = urlJoin(process.env.API_URL, "tags")
+    const param:Params =  {limit:" 500", fields:"id"}
+    const data = await request(url, param).then(res => res.json())
+
+    return data.contents
+}
+
 // 指定したタグがつけられている投稿を取得
 export async function getPostMetaByTag(slug:string):Promise<Post[]> {
-    const param:Params = {filters: `tags[contains]${slug}`, fields: postMetas.join(",")}
+    const param:Params = {orders: "-published", limit:" 500", filters: `tags[contains]${slug}`, fields: postMetas.join(",")}
     const url = urlJoin(process.env.API_URL, "myblog");
     const data = await request(url, param).then(res => res.json())
     return data.contents

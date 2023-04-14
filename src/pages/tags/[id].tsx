@@ -1,18 +1,36 @@
 import PostGrid from "components/organism/PostsGrid";
 import Ogp from "components/Ogp";
 import Meta from 'components/Meta'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticProps, GetStaticPaths, NextPage } from 'next'
 import { PostMeta } from "types";
-import { getPostMetaByTag, getTagProperty } from "lib/microcmsAPI";
+import { getPostMetaByTag, getAllTagIds, getTagProperty } from "lib/microcmsAPI";
+import { ParsedUrlQuery } from 'node:querystring'
 
-type SSRProps = {
-    posts: PostMeta[],
-    tag_name: string
+interface Params extends ParsedUrlQuery {
+  id: string
 }
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async (context) => {
-  let tag_id = context.query["id"] as string
-  let tagp = await getTagProperty(tag_id)
+type Props = {
+  posts: PostMeta[],
+  tag_name: string
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const ids = await getAllTagIds()
+  let paths = []
+  for(let v of ids){
+    paths.push({params: {id: v["id"]}})
+  }
+
+  return { 
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
+  const { id } = context.params as Params 
+  let tagp = await getTagProperty(id)
   
   if(tagp === null){
     return {
@@ -20,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<SSRProps> = async (context) 
     }
   }
   
-  let data = await getPostMetaByTag(tag_id)
+  let data = await getPostMetaByTag(id)
     return {
         props:{
             posts:data,
@@ -29,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<SSRProps> = async (context) 
     }
 }
 
-const Page: NextPage<SSRProps> = ({ posts, tag_name }) => {
+const Page: NextPage<Props> = ({ posts, tag_name }) => {
   return (
     <>
       <Meta description={`タグ：${tag_name}がついている投稿一覧です。`} title={tag_name}/>
