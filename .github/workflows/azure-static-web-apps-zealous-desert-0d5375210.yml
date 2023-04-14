@@ -9,7 +9,7 @@ on:
     branches:
       - main
   repository_dispatch:
-    branches: [ main ]
+    types: [update-posts]
 
 jobs:
   build_and_deploy_job:
