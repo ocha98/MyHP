@@ -2,7 +2,7 @@ import { loadPostData, getAllPostIDs } from 'lib/microcmsAPI'
 import { Container } from "react-bootstrap"
 import PostHeader from 'components/organism/PostHeader'
 import StyleMD from "../../styles/Markdown.module.scss"
-import { MDtoHtml } from 'lib/MDtoHTML'
+import MDtoHTML from 'lib/MDtoHTML'
 import Meta from 'components/Meta'
 import PostStyle from "../../styles/Post.module.scss"
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
     }
   }
 
-  post.content = await MDtoHtml(post.content)
+  post.content = await MDtoHTML(post.content)
   return {
     props: {
       postData: post
