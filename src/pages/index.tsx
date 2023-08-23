@@ -45,7 +45,7 @@ const Home: NextPage<Props> = ({ recentPosts }) => {
           <Link href="/posts"><p style={{fontSize:"1.3rem", margin:"0"}}>---More---</p></Link>
         </article>
         <article className='p-5  text-center container'>
-          <h2 className="fw-normal border-bottom ">Information</h2>
+          <h2 className="fw-normal border-bottom ">Links</h2>
 
           <div className="row my-4 ">
             <section className="col-sm-4 col-lg-3" style={{ height: info_block_size }}>
