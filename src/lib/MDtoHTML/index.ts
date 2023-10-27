@@ -46,7 +46,7 @@ export default async function MDtoHTML (text: string): Promise<string> {
         .use(rehypeRaw)
         .use(rehypeSlug)
         .use(rehypeExternalLinks, { target: "_blank", rel: ['noopener noreferrer nofollow'] })
-        .use(rehypeHighlight, {languages: {hjsLatex}})
+        .use(rehypeHighlight, {languages: {hjsLatex}, ignoreMissing: true})
         .use(rehypeImageSize)
         .use(rehypeWrapTable, {className: "table-scroll"})
         .use(rehypeSanitize, sanitizeOptions)
