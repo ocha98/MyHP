@@ -7,6 +7,8 @@ type Params = {
     [k:string]: string
 }
 
+const ENDPOINT = process.env.API_URL;
+
 // microCMSのAPIを叩く
 async function request(url: string, params:Params = {}): Promise<Response>{
     const serchParam = new URLSearchParams(params).toString()
@@ -18,12 +20,12 @@ async function request(url: string, params:Params = {}): Promise<Response>{
         "X-MICROCMS-API-KEY": process.env.API_KEY
       }})
 
-      return resu
+    return resu
 }
 
 // 指定したidの投稿を読み込む
 export async function loadPostData(id: string): Promise<Post|null>{
-    const url = urlJoin(process.env.API_URL, "myblog", id)
+    const url = urlJoin(ENDPOINT, "myblog", id)
 
     const resu = await request(url)
 
@@ -45,7 +47,8 @@ export async function loadPostData(id: string): Promise<Post|null>{
         modified:data["modified"],
         description:data["description"],
         content:data["content"],
-        title:data["title"]
+        title:data["title"],
+        isLimited: data["limited"]
     }
 
     return retu  
@@ -53,7 +56,7 @@ export async function loadPostData(id: string): Promise<Post|null>{
 
 //全ての投稿idを取得
 export async function getAllPostIDs(): Promise<{id:string}[]> {
-    const url = urlJoin(process.env.API_URL, 'myblog')
+    const url = urlJoin(ENDPOINT, 'myblog')
     const param: Params = {orders: "-published", limit:" 500", fields:"id"}
     const data = await request(url, param).then(res => res.json())
 
@@ -62,15 +65,15 @@ export async function getAllPostIDs(): Promise<{id:string}[]> {
 
 // 全ての投稿メタを日付順にソートし返却
 export async function getSortedPostMeta(limit: number):Promise<PostMeta[]> {
-    const url = urlJoin(process.env.API_URL, `myblog`)
-    const param: Params = {orders: "-published", limit: limit.toString(), fields:postMetas.join(",") }
+    const url = urlJoin(ENDPOINT, `myblog`)
+    const param: Params = {orders: "-published", limit: limit.toString(), filters:"limited[equals]false", fields:postMetas.join(",") }
     const data = await request(url, param).then(res => res.json())
     return data.contents
 }
 
 // 全てのタグidを取得
 export async function getAllTagIds():Promise<{id:string}[]> {
-    let url = urlJoin(process.env.API_URL, "tags")
+    let url = urlJoin(ENDPOINT, "tags")
     const param:Params =  {limit:" 500", fields:"id"}
     const data = await request(url, param).then(res => res.json())
 
@@ -79,15 +82,15 @@ export async function getAllTagIds():Promise<{id:string}[]> {
 
 // 指定したタグがつけられている投稿を取得
 export async function getPostMetaByTag(slug:string):Promise<Post[]> {
-    const param:Params = {orders: "-published", limit:" 500", filters: `tags[contains]${slug}`, fields: postMetas.join(",")}
-    const url = urlJoin(process.env.API_URL, "myblog");
+    const param:Params = {orders: "-published", limit:" 500", filters: `tags[contains]${slug}[and]limited[equals]false`, fields: postMetas.join(",")}
+    const url = urlJoin(ENDPOINT, "myblog");
     const data = await request(url, param).then(res => res.json())
     return data.contents
 }
 
 // 指定したタグのデータを取得
 export async function getTagProperty(id: string):Promise<Tag | null> {
-    let url = urlJoin(process.env.API_URL, "tags", id)
+    let url = urlJoin(ENDPOINT, "tags", id)
     const param:Params = {fields: "id,text"}
     const resu = await request(url, param)
 

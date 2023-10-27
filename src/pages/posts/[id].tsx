@@ -10,6 +10,7 @@ import { ParsedUrlQuery } from 'node:querystring'
 import BreadJsonLd from 'components/BreadJsonLdPost'
 import { Post } from 'types'
 import Ogp from 'components/Ogp'
+import Head from 'next/head'
 
 interface Params extends ParsedUrlQuery {
   id: string
@@ -54,6 +55,7 @@ export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
 export const Page: NextPage<Props> = ({ postData }) => {
   return (
     <>
+      {postData.isLimited && <Head><meta name="robots" content="noindex"/></Head>}
       <Meta description={postData.description} title={postData.title}/>
       <BreadJsonLd title={postData.id}/>
       <Ogp description={postData.description} title={postData.title}/>

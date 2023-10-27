@@ -12,6 +12,7 @@ export type PostMeta = {
     description: string
     modified:string
     tags: Tag[]
+    isLimited: boolean
 }
 
 export interface Post extends PostMeta{
