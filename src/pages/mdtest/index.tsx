@@ -16,6 +16,7 @@ const App = () => {
     <div style={{ display: 'flex', height: '100vh' }}>
       <div style={{ flex: 1, overflow: 'auto' }}>
         <Codemirror 
+          autoFocus={true}
           extensions={[markdown({base:markdownLanguage, codeLanguages: languages})]} 
           onChange={(value, viewUpdate) => {setMarkdownText(value)}}
         />
