@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <header>
+    <header id="page-header">
       <Navbar bg="dark" expand="md" variant="dark">
         <Container fluid>
           <Link href="/" passHref>
