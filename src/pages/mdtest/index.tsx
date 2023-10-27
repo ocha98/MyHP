@@ -13,7 +13,7 @@ const App = () => {
     MDtoHTML(markdownText).then(s => setHtmlText(s));
   }, [markdownText]);
 
-  const [contentHeight, setContentHeight] = useState('100vh'); // 初期値として100vhを設定
+  const [contentHeight, setContentHeight] = useState('100vh');
 
   useEffect(() => {
     MDtoHTML(markdownText).then(s => setHtmlText(s));
