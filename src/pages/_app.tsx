@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import 'highlight.js/scss/github-dark-dimmed.scss'
 import '../styles/globals.css'
 import 'katex/dist/katex.min.css'
-import { BIZ_UDPGothic } from '@next/font/google'
+import { BIZ_UDPGothic } from 'next/font/google'
 import Header from 'components/organism/Header'
 import Footer from 'components/organism/Footer'
 
