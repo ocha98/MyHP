@@ -1,4 +1,5 @@
-import unified from "unified";
+import type {Plugin} from "unified";
+import type { Root } from "hast"
 import { Node } from "unist";
 import { visit } from "unist-util-visit";
 
@@ -8,7 +9,7 @@ interface exNode extends Node {
     properties: string,
 }
 
-const wrapper: unified.Plugin = () => {
+const wrapper: Plugin<[], Root>  = () => {
     return (tree: Node) => {
 
         visit(tree, "root", visitor)
