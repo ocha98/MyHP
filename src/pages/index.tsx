@@ -66,7 +66,7 @@ const Home: NextPage<Props> = ({ recentPosts }) => {
             </section>
             <section className="col-sm-4 col-lg-3" style={{ height: info_block_size }}>
               <a href="https://atcoder.jp/users/shinnshinn" target="_blank" rel='noopener noreferrer nofollow'>
-                <h3 style={{ lineHeight: info_block_size }}>AtCoder</h3>
+                <img alt='atcoder logo' src='/atcoder_logo.webp' width={info_icon_size + 40} height={info_icon_size + 40}></img>
               </a>
             </section>
             <section className="col-sm-4 col-lg-3" style={{ height: info_block_size }}>
