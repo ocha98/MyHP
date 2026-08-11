@@ -1,11 +1,11 @@
 //タイトル、description、正規URLの設定する
 import Head from "next/head"
 import { useRouter } from'next/router'
-import urlJoin from "url-join"
+import { siteUrl } from 'lib/siteUrl'
 
 const Meta = ({ description, title }:{description:string, title:string}) => {
   const path = useRouter().asPath
-  const url = urlJoin(process.env.NEXT_PUBLIC_DOMAIN, path)
+  const url = siteUrl(path)
   return (
     <Head>
       <title>{`${title}-お茶の葉`}</title>

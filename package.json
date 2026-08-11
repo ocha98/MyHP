@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@codemirror/lang-markdown": "^6.5.2",
@@ -37,7 +38,8 @@
     "remark-rehype": "^11.1.2",
     "styled-components": "^6.5.1",
     "unified": "^11.0.5",
-    "url-join": "^5.0.0"
+    "url-join": "^5.0.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "bootstrap": "^5.3.8",
@@ -45,9 +47,10 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.0",
     "sass": "^1.102.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.19.0"
   }
 }

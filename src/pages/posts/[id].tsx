@@ -11,6 +11,7 @@ import BreadJsonLd from 'components/BreadJsonLdPost'
 import { Post } from 'types'
 import Ogp from 'components/Ogp'
 import Head from 'next/head'
+import Image from 'next/image'
 
 interface Params extends ParsedUrlQuery {
   id: string
@@ -57,7 +58,7 @@ export const Page: NextPage<Props> = ({ postData }) => {
     <>
       {postData.isLimited && <Head><meta name="robots" content="noindex"/></Head>}
       <Meta description={postData.description} title={postData.title}/>
-      <BreadJsonLd title={postData.id}/>
+      <BreadJsonLd id={postData.id} title={postData.title}/>
       <Ogp description={postData.description} title={postData.title}/>
       <div className={PostStyle.container}>
         <Container  className='p-0'>
@@ -71,7 +72,14 @@ export const Page: NextPage<Props> = ({ postData }) => {
             <footer className="card  mt-3">
               <h2 className="fs-5 card-header">書いた人</h2>
               <div className="card-body d-flex">
-                <img src="/ogp.jpg" width={64} height={64} style={{ objectFit: "contain" }} alt="profile_image" />
+                <Image
+                  src="/ogp.jpg"
+                  width={64}
+                  height={64}
+                  style={{ objectFit: "contain" }}
+                  alt="お茶の葉のプロフィール画像"
+                  unoptimized
+                />
                 <div className='container'>
                   <p className="fs-4 card-title">お茶の葉</p>
                   <p className="card-text">物理とプログラミングが好きな人</p>

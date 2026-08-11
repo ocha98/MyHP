@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output:"export",
+  output: "export",
   reactStrictMode: true,
-  experimental: {
-    useTypeScriptCli: false,
+  images: {
+    unoptimized: true,
   },
 }
 

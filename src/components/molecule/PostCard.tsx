@@ -15,8 +15,6 @@ const PostCard = ({ id, title, description, published, tags}:PostMeta) => {
           </Link>
         </div>
         <div style={{ margin: "3px", paddingBottom: "8px" }}>
-        </div>
-        <div style={{ margin: "3px", paddingBottom: "8px" }}>
           {
             tags.map((tag) => {
               return <Tag key={tag.id} is_small={true} {...tag} />

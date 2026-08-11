@@ -24,10 +24,10 @@ const about = () => {
           </section>
           <section className="py-3">
             <h2 className="border-bottom border-info p-1 my-2"><i className="bi bi-globe"/> SNS等のアカウントを教えて！</h2>
-            <a href="https://twitter.com/I_am_Ochappa" target="_blank" rel='noopener noreferrer nofollow'><Button variant="secondary mx-2 my-1"><i className="bi bi-twitter"/> Twitter</Button></a>
-            <a href="https://github.com/ocha98" target="_blank" rel='noopener noreferrer nofollow'><Button variant="secondary mx-2 my-1"><i className="bi bi-github"/> GitHub</Button></a>
-            <a href="https://atcoder.jp/users/shinnshinn" target="_blank" rel='noopener noreferrer nofollow'><Button variant="secondary mx-2 my-1">AtCoder</Button></a>
-            <a href="https://codeforces.com/profile/shinnshinn" target="_blank" rel='noopener noreferrer nofollow'><Button variant="secondary mx-2 my-1">Codeforces</Button></a>
+            <Button href="https://twitter.com/I_am_Ochappa" target="_blank" rel='noopener noreferrer nofollow' variant="secondary" className="mx-2 my-1"><i className="bi bi-twitter"/> Twitter</Button>
+            <Button href="https://github.com/ocha98" target="_blank" rel='noopener noreferrer nofollow' variant="secondary" className="mx-2 my-1"><i className="bi bi-github"/> GitHub</Button>
+            <Button href="https://atcoder.jp/users/shinnshinn" target="_blank" rel='noopener noreferrer nofollow' variant="secondary" className="mx-2 my-1">AtCoder</Button>
+            <Button href="https://codeforces.com/profile/shinnshinn" target="_blank" rel='noopener noreferrer nofollow' variant="secondary" className="mx-2 my-1">Codeforces</Button>
           </section>
           <section className="py-3">
             <h2 className="border-bottom border-info p-1 my-3"><i className="bi bi-send"/> 連絡手段は？</h2>

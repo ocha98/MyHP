@@ -10,7 +10,12 @@ import Footer from 'components/organism/Footer'
 import Script from 'next/script'
 import { createContext, useState } from 'react'
 
-const biz = BIZ_UDPGothic({ weight:["400", "700"], subsets: ['latin']})
+const biz = BIZ_UDPGothic({
+  weight: ["400", "700"],
+  subsets: ['latin'],
+  // 日本語フォントの分割ファイルを全件preloadしない。
+  preload: false,
+})
 
 export const AdSenseContext = createContext<boolean>(false);
 
