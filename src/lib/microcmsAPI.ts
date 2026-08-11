@@ -35,8 +35,8 @@ export async function loadPostData(id: string): Promise<Post|null>{
    
     const data = await resu.json()
 
-    let tags:Tag[] = []
-    for(let tag of data["tags"]){
+    const tags:Tag[] = []
+    for(const tag of data["tags"]){
         tags.push({id: tag["id"], text: tag["text"]})
     }
  
@@ -73,7 +73,7 @@ export async function getSortedPostMeta(limit: number):Promise<PostMeta[]> {
 
 // 全てのタグidを取得
 export async function getAllTagIds():Promise<{id:string}[]> {
-    let url = urlJoin(ENDPOINT, "tags")
+    const url = urlJoin(ENDPOINT, "tags")
     const param:Params =  {limit:" 500", fields:"id"}
     const data = await request(url, param).then(res => res.json())
 
@@ -90,7 +90,7 @@ export async function getPostMetaByTag(slug:string):Promise<Post[]> {
 
 // 指定したタグのデータを取得
 export async function getTagProperty(id: string):Promise<Tag | null> {
-    let url = urlJoin(ENDPOINT, "tags", id)
+    const url = urlJoin(ENDPOINT, "tags", id)
     const param:Params = {fields: "id,text"}
     const resu = await request(url, param)
 

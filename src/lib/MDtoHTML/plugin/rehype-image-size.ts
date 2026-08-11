@@ -3,9 +3,7 @@ import { visit } from "unist-util-visit";
 import { Root } from "hast";
 
 
-interface Options {};
-
-const rehypeImageSize: Plugin<Options[], Root> = (options = {}) => {
+const rehypeImageSize: Plugin<[], Root> = () => {
     return(tree) => {
         visit(tree, 'element', (node)  => {
             if(node.tagName === "img"){

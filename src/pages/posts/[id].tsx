@@ -22,8 +22,8 @@ type Props = {
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const ids = await getAllPostIDs()
-  let paths = []
-  for(let v of ids){
+  const paths = []
+  for(const v of ids){
     paths.push({params: {id: v["id"]}})
   }
 
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
   const { id } = context.params as Params 
 
-  let post = await loadPostData(id)
+  const post = await loadPostData(id)
 
   if(post === null){
     return {

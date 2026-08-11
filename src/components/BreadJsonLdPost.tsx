@@ -28,13 +28,13 @@ const BreadJsonLd = ({title}: Props) => {
     assert.equal(path.length, 2)
     assert.equal(path[0], 'posts')
 
-    let breadPost:Breadcrumb = {
+    const breadPost: Breadcrumb = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": []
     }
 
-    let nameList: string[] = ["投稿", title]
+    const nameList: string[] = ["投稿", title]
 
     //投稿一覧からのパンくずリスト
     let url = process.env.NEXT_PUBLIC_DOMAIN
