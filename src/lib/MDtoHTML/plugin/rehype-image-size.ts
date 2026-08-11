@@ -10,18 +10,15 @@ const rehypeImageSize: Plugin<[], Root> = () => {
                 if(!node.properties)return;
                 if(!node.properties.title)return;
                 const title = node.properties.title as string;
-                const sizePattern = /^=(\d*)?x(\d*)?$/
+                const sizePattern = /^=(\d+)?x(\d+)?$/
                 const matchResult = sizePattern.exec(title)
                 if(!matchResult)return;
 
-                const width = parseInt(matchResult[1], 10);
-                const height = parseInt(matchResult[2], 10);
-
-                if(!height){
-                    node.properties.width = width;
+                if(matchResult[1]){
+                    node.properties.width = Number(matchResult[1]);
                 }
-                if(!width){
-                    node.properties.height = height;
+                if(matchResult[2]){
+                    node.properties.height = Number(matchResult[2]);
                 }
                 delete node.properties.title
             }

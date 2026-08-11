@@ -1,58 +1,52 @@
-import assert from "assert"
-import Head from "next/head"
-import { useRouter } from "next/router"
-import { Breadcrumb } from "react-bootstrap"
-import urlJoin from "url-join"
+import Head from 'next/head'
+import { siteUrl } from 'lib/siteUrl'
 
 type ListItem = {
-    readonly "@type": "ListItem",
-    item: string,
-    name: string,
+    readonly '@type': 'ListItem'
+    item: string
+    name: string
     position: number
 }
 
 type Breadcrumb = {
-    readonly "@context": "https://schema.org",
-    readonly "@type": "BreadcrumbList",
-    "itemListElement": ListItem[]
+    readonly '@context': 'https://schema.org'
+    readonly '@type': 'BreadcrumbList'
+    itemListElement: ListItem[]
 }
 
 type Props = {
-    title: string,
+    id: string
+    title: string
 }
 
-const BreadJsonLd = ({title}: Props) => {
-    const path: string[] = useRouter().asPath.split("/")
-    path.shift()
-
-    assert.equal(path.length, 2)
-    assert.equal(path[0], 'posts')
-
-    const breadPost: Breadcrumb = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": []
+const BreadJsonLd = ({ id, title }: Props) => {
+    const postsUrl = siteUrl('posts')
+    const breadcrumb: Breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: '投稿',
+                item: postsUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: title,
+                item: siteUrl('posts', id),
+            },
+        ],
     }
+    const json = JSON.stringify(breadcrumb).replace(/</g, '\\u003c')
 
-    const nameList: string[] = ["投稿", title]
-
-    //投稿一覧からのパンくずリスト
-    let url = process.env.NEXT_PUBLIC_DOMAIN
-    for (let i = 0; i < path.length; ++i) {
-        url = urlJoin(url, path[i])
-        const elem: ListItem = {
-            "@type": "ListItem",
-            "position": i+1,
-            "name": nameList[i],
-            "item": url
-        }
-        breadPost.itemListElement.push(elem)
-    }
-
-
-    return(
+    return (
         <Head>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadPost) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: json }}
+            />
         </Head>
     )
 }

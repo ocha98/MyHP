@@ -4,15 +4,15 @@ import { Root, Element } from "hast";
 
 
 interface Options {
-    className: string | undefined
-};
+    className?: string
+}
 
-const rehypeImageSize: Plugin<Options[], Root> = (options) => {
+const rehypeWrapTable: Plugin<[Options?], Root> = (options = {}) => {
     const className = options.className || 'table-wrapper';
     return(tree) => {
         visit(tree, 'element', (node, index, parent)  => {
             if(node.tagName === "table"){
-                if(!index)return;
+                if(index === undefined || !parent)return;
                 const wrapped: Element = {
                     type: 'element',
                     tagName: "div",
@@ -22,9 +22,9 @@ const rehypeImageSize: Plugin<Options[], Root> = (options) => {
                     children: [node]
                 };
 
-                parent?.children.splice(index, 1, wrapped);
+                parent.children.splice(index, 1, wrapped);
             }
         })
     }
 }
-export default rehypeImageSize
+export default rehypeWrapTable

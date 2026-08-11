@@ -4,11 +4,10 @@ declare namespace NodeJS {
       /** 現在の Node.js 実行環境 */
       readonly NODE_ENV: 'development' | 'production' | 'test';
   
-      readonly API_URL: string;
+      readonly API_URL?: string;
 
-      readonly API_KEY:string;
+      readonly API_KEY?: string;
 
-      readonly NEXT_PUBLIC_DOMAIN:string;
+      readonly NEXT_PUBLIC_DOMAIN?: string;
     }
   }
-
