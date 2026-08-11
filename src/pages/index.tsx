@@ -10,7 +10,7 @@ type Props = {
   recentPosts: PostMeta[]
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ( context ) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const num = 4
   let data = await getSortedPostMeta(num)
 

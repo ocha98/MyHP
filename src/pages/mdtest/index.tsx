@@ -16,16 +16,24 @@ const App = () => {
   const [contentHeight, setContentHeight] = useState('100vh');
 
   useEffect(() => {
-    MDtoHTML(markdownText).then(s => setHtmlText(s));
+    const updateContentHeight = () => {
+      const headerElement = document.getElementById('page-header');
+      const footerElement = document.getElementById('page-footer');
 
-    const headerElement = document.getElementById('page-header');
-    const footerElement = document.getElementById('page-footer');
-    
-    if(headerElement instanceof HTMLElement && footerElement instanceof HTMLElement ){
-      const calcContentHeight = window.innerHeight - headerElement.offsetHeight - footerElement.offsetHeight;
-      setContentHeight(`${calcContentHeight}px`);
+      if(headerElement instanceof HTMLElement && footerElement instanceof HTMLElement ){
+        const height = window.innerHeight - headerElement.offsetHeight - footerElement.offsetHeight;
+        setContentHeight(`${height}px`);
+      }
     }
-  }, [markdownText]);
+
+    const animationFrame = requestAnimationFrame(updateContentHeight);
+    window.addEventListener('resize', updateContentHeight);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      window.removeEventListener('resize', updateContentHeight);
+    }
+  }, []);
 
   return (
     <div style={{ display: 'flex', height: contentHeight }}>
@@ -36,7 +44,7 @@ const App = () => {
             markdown({base:markdownLanguage, codeLanguages: languages}),
             EditorView.lineWrapping
           ]} 
-          onChange={(value, viewUpdate) => {setMarkdownText(value)}}
+          onChange={(value) => {setMarkdownText(value)}}
         />
       </div>
       <div style={{ flex: 1, overflow: 'auto', padding: '1em', borderLeft: "1px solid gray" }}>
